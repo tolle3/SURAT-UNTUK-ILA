@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💌 Surat Cinta Untuk ila</title>
+    <style>
+        /* BACKGROUND PINK SOFT */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            background: linear-gradient(145deg, #ffd1dc 0%, #ffe4e9 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Hiasan hati di background */
+        body::before {
+            content: "❤️";
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 40px;
+            opacity: 0.2;
+            transform: rotate(-15deg);
+        }
+
+        body::after {
+            content: "❤️";
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-size: 60px;
+            opacity: 0.2;
+            transform: rotate(20deg);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== STYLE SURAT KERTAS ===== */
+        .surat-kertas {
+            background: #fff9f7;
+            width: 100%;
+            border-radius: 20px 8px 20px 8px;
+            box-shadow: 
+                0 20px 35px rgba(255, 105, 135, 0.3),
+                0 0 0 1px #ffb6c1,
+                0 0 0 2px #ffffff,
+                0 0 0 5px #ffc0cb;
+            padding: 15px;
+            position: relative;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        /* Efek kertas terlipat */
+        .surat-kertas::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-top: 40px solid #ffe4e1;
+            border-left: 40px solid transparent;
+            border-radius: 0 0 0 20px;
+            opacity: 0.8;
+        }
+
+        /* Amplop flap (simulasi) */
+        .flap {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffb7c5;
+            color: white;
+            padding: 8px 25px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            box-shadow: 0 5px 0 #ff8da1;
+            text-transform: uppercase;
+            z-index: 30;
+        }
+
+        .flap span {
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        /* Bagian dalam surat (isi) */
+        .isi-surat {
+            background: #fff5f5;
+            padding: 35px 30px;
+            border-radius: 16px;
+            border: 2px dashed #ffa5b0;
+            margin: 10px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Gaya saat surat TERTUTUP */
+        .surat-tertutup .isi-surat {
+            filter: blur(4px);
+            opacity: 0.6;
+            background: #ffe7eb;
+            user-select: none;
+            transition: all 0.4s;
+        }
+
+        .surat-tertutup .isi-surat p,
+        .surat-tertutup .isi-surat h2,
+        .surat-tertutup .isi-surat .tanda-tangan {
+            filter: blur(2px);
+            color: #bc8f8f;
+        }
+
+        /* Gaya saat surat TERBUKA */
+        .surat-terbuka .isi-surat {
+            filter: blur(0);
+            opacity: 1;
+            background: #fff0f3;
+            box-shadow: inset 0 0 30px rgba(255, 182, 193, 0.3);
+        }
+
+        /* Hiasan pita/perangko */
+        .stempel {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            font-size: 45px;
+            opacity: 0.4;
+            transform: rotate(15deg);
+            color: #c71585;
+        }
+
+        /* Hati kecil dekorasi */
+        .dekor-hati {
+            position: absolute;
+            color: #ff99aa;
+            font-size: 24px;
+        }
+
+        .hati1 {
+            top: 10px;
+            left: 15px;
+            animation: float 3s infinite;
+        }
+
+        .hati2 {
+            bottom: 10px;
+            right: 15px;
+            animation: float 4s infinite reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Tanda tangan */
+        .tanda-tangan {
+            margin-top: 30px;
+            font-style: italic;
+            color: #b34167;
+            border-top: 2px solid #ffaeb9;
+            padding-top: 15px;
+            text-align: right;
+            font-size: 1.2rem;
+        }
+
+        /* Petunjuk klik */
+        .petunjuk {
+            text-align: center;
+            margin-top: 25px;
+            color: #a35c6b;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: normal;
+        }
+
+        .petunjuk i {
+            font-size: 22px;
+            animation: klik 1.5s infinite;
+        }
+
+        @keyframes klik {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); color: #ff4d6d; }
+            100% { transform: scale(1); }
+        }
+
+        /* Efek hover amplop */
+        .surat-kertas:hover {
+            box-shadow: 0 25px 40px rgba(255, 80, 120, 0.4);
+            transform: scale(1.01);
+        }
+
+        /* Responsif */
+        @media (max-width: 500px) {
+            .isi-surat {
+                padding: 25px 15px;
+            }
+        }
+
+        /* Konten isi surat styling */
+        .salam {
+            font-size: 1.8rem;
+            color: #d64161;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-shadow: 2px 2px 0 #ffe1e6;
+        }
+
+        .pesan-cinta {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #6d3b47;
+        }
+
+        .highlight {
+            background: #ffd9e2;
+            padding: 3px 8px;
+            border-radius: 20px;
+            color: #b30047;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- SURAT KERTAS - KLIK UNTUK BUKA/TUTUP -->
+        <div class="surat-kertas" id="suratCinta">
+            
+            <!-- Label flap atas -->
+            <div class="flap">
+                <span>💌</span> UNTUK MY LOVE <span>💌</span>
+            </div>
+
+            <!-- Bagian dalam surat (isi) -->
+            <div class="isi-surat">
+                
+                <!-- Hiasan hati kecil -->
+                <div class="dekor-hati hati1">🌸</div>
+                <div class="dekor-hati hati2">🌷</div>
+
+                <!-- SALAM PEMBUKA -->
+                <div class="salam">Untuk Pacarku tersayangg,</div>
+                
+                <!-- ISI SURAT CINTA -->
+                <div class="pesan-cinta">
+                    <p style="font-size: 1.3rem; margin-bottom: 5px;">❤️ <span class="highlight">Hallow Sayangku</span> ❤️</p>
+                    <p>
+                        Dari sekian banyak orang di dunia, aku bersyukur bisa bertemu kamu. 
+                        Kamu bukan hanya indah dipandang, tapi juga hangat seperti mentari pagi. 
+                        Setiap kali aku melihatmu, dunia serasa berhenti dan hanya ada kamu.
+                    </p>
+                    <p>
+                        Aku ingin kamu tahu bahwa <span style="color: #c44569; font-weight: bold;">kamu adalah alasan aku tersenyum</span> hari ini, 
+                        kemarin, dan semoga seterusnya. Bersamamu, aku belajar arti sabar, arti rindu, 
+                        dan arti bahagia yang sederhana.
+                    </p>
+                    <p style="margin-top: 25px;">
+                        Aku minta maaf karena sering ketiduran dan bikin kamu jadi betmut, kesel apalagi sampai marah. 
+                        kemarin juga pasti kamu pengen ditemenin, mau cerita-cerita banyak malah aku ketiduran
+                        maaf yaa sayang, kamu pasti ngerasa ditinggalin, kurang diperhatiin aku ga bermaksud gitu.
+                        terrima kasih ya, udah banyak sabar sama aku.
+                        Semoga kamu suka ini, dan menerima permintaan maafku ini sayang. iloveyou❤️
+                    </p>
+                </div>
+
+                <!-- PENUTUP & TANDA TANGAN -->
+                <div class="tanda-tangan">
+                    Dari seseorang yang selalu menyayangimu,<br>
+                    <strong style="font-size: 1.5rem; font-family: 'Brush Script MT', cursive;">Cintamu</strong><br>
+                    <span style="font-size: 0.9rem;">❤️ 12 February 2026 ❤️</span>
+                </div>
+
+                <!-- Stempel/perangko cinta -->
+                <div class="stempel">💖</div>
+            </div>
+
+            <!-- PETUNJUK KLIK -->
+            <div class="petunjuk" id="petunjukKlik">
+                <span>💖</span>KLIK UNTUK <span id="teksAksi">MEMBUKA</span> SURAT <span>💖</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Ambil elemen surat
+        const surat = document.getElementById('suratCinta');
+        const teksAksi = document.getElementById('teksAksi');
+        
+        // State awal: surat TERTUTUP (blur)
+        surat.classList.add('surat-tertutup');
+        let isOpen = false;
+
+        // FUNGSI untuk buka/tutup surat
+        function toggleSurat() {
+            if (isOpen) {
+                // Tutup surat
+                surat.classList.remove('surat-terbuka');
+                surat.classList.add('surat-tertutup');
+                teksAksi.innerText = 'MEMBUKA';
+                // Ganti emoji petunjuk
+                document.querySelector('.petunjuk span:first-child').innerHTML = '📬';
+                document.querySelector('.petunjuk span:last-child').innerHTML = '📬';
+            } else {
+                // Buka surat
+                surat.classList.remove('surat-tertutup');
+                surat.classList.add('surat-terbuka');
+                teksAksi.innerText = 'MENUTUP';
+                // Ganti emoji petunjuk
+                document.querySelector('.petunjuk span:first-child').innerHTML = '📭';
+                document.querySelector('.petunjuk span:last-child').innerHTML = '📭';
+            }
+            isOpen = !isOpen;
+        }
+
+        // Event klik di SURAT (area manapun dalam kartu surat)
+        surat.addEventListener('click', function(e) {
+            // Supaya tidak double trigger jika klik di dalam
+            e.stopPropagation();
+            toggleSurat();
+        });
+
+        // Efek tambahan: kertas sedikit bergoyang saat pertama kali dibuka (opsional)
+        // Tambahin efek cinta ekstra :D
+
+        // Set salam berdasarkan waktu (optional)
+        const jam = new Date().getHours();
+        let salamWaktu = "Sayang";
+        if (jam < 11) salamWaktu = "Selamat Pagi, Sayang";
+        else if (jam < 15) salamWaktu = "Selamat Siang, Cinta";
+        else if (jam < 19) salamWaktu = "Selamat Sore, Kekasih";
+        else salamWaktu = "Selamat Malam, Jantungku";
+        
+        // Ubah sedikit isi salam (bebas)
+        const salamElement = document.querySelector('.salam');
+        if (salamElement) {
+            salamElement.innerHTML = `${salamWaktu},`;
+        }
+
+        // Efek pemanis: hati bertebaran saat pertama buka? 
+        // Boleh dikasih confetti cinta? Sederhana aja dulu
+        console.log("💌 Surat cinta siap dibuka!");
+    </script>
+
+    <!-- Tambahan audio opsional (sembunyikan) - uncomment jika mau ada musik -->
+    <!-- 
+    <audio id="musikCinta" loop style="display: none;">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+    <script>
+        // Aktifkan musik jika mau (karena autoplay diblokir browser, perlu interaksi)
+        // Bisa ditambahkan event klik pertama untuk play musik
+        let musikSudahMain = false;
+        surat.addEventListener('click', function playMusikPertama() {
+            if (!musikSudahMain) {
+                const musik = document.getElementById('musikCinta');
+                if (musik) {
+                    musik.volume = 0.2;
+                    musik.play().catch(e => console.log('Autoplay dicegah browser'));
+                }
+                musikSudahMain = true;
+                surat.removeEventListener('click', playMusikPertama);
+            }
+        });
+    </script>
+    -->
+</body>
+</html>
